@@ -1,0 +1,67 @@
+/**
+* override css's
+*/
+html{
+	height: 100%;
+}
+body{
+	position: relative;
+	min-height: 100%;
+	padding-bottom: 5rem;
+}
+.bg-light{
+	background-color: #02aadd !important;
+}
+.margin-top-20{
+	margin-top: 20px;
+}
+.feature-img{
+	max-height: 350px;
+}
+
+.product-item{
+	background: #000000 !important;
+}
+
+.child-rows{
+	padding-left: 20px;
+	border-left: 1px solid #dfdfdf;
+	background: #fff;
+}
+.child-rows a.list-group-item{
+	border-left: 0px !important;
+}
+.list-group-item.active{
+	z-index: z;
+	color: #fff;
+	background-color: #02aadd;
+	border-color: #02aadd;
+	border-radius: 0px !important;
+}
+.hidden{
+	display: none;
+}
+
+.pointer{
+	cursor: pointer;
+}
+
+/**
+* nav bar  css's
+*/
+
+.mx-atu, .mr-auto{
+	margin-right: auto !important;
+	margin-top: 12px;
+	margin-bottom: -10px; 
+}
+
+.footer-bottom{
+	padding: 20px;
+	margin-top: 20px;
+	background: #02aadd;
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
