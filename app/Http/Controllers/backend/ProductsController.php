@@ -79,9 +79,10 @@ class ProductsController extends Controller
     	// }
 
     	if(count($request->product_image) > 0 ){
+            $i = 0;
     		foreach ($request->product_image as $image ) {
     			// $image = $request->file('product_image');
-    			$img   = time().'.'.$image->getClientOriginalExtension();
+    			$img   = time(). $i.'.'.$image->getClientOriginalExtension();
     			$location = public_path('images/products/'.$img);
     				// echo $location;die();
     			Image::make($image)->save($location);
@@ -90,6 +91,7 @@ class ProductsController extends Controller
     			$product_image->product_id = $product->id;
     			$product_image->image = $img;
     			$product_image->save();	
+                $i++;
     		}
     	}
 
@@ -117,8 +119,25 @@ class ProductsController extends Controller
      	$product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
+        $product->save();
+        if(count($request->product_image) > 0 ){
+            $i = 0;
+            foreach ($request->product_image as $image ) {
+                // $image = $request->file('product_image');
+                $img   = time(). $i.'.'.$image->getClientOriginalExtension();
+                $location = public_path('images/products/'.$img);
+                    // echo $location;die();
+                Image::make($image)->save($location);
 
-     	$product->save();
+                $product_image = new ProductImage;
+                $product_image->product_id = $product->id;
+                $product_image->image = $img;
+                $product_image->save(); 
+                $i++;
+            }
+        }
+
+     	
      	return redirect()->route('admin.products');
      }
 
@@ -128,6 +147,17 @@ class ProductsController extends Controller
         if(!is_null($product)){
             $product->delete();
         }
+
+        // delete all images
+        foreach ($product->images as $image) {
+           $file_name =  $image->image;
+           if(file_exists(public_path('images/products/'.$file_name))){
+            unlink(public_path('images/products/'.$file_name));
+           }
+
+            $image->delete();
+        }
+
         session()->flash('success', 'Product has deleted successfully!!');
         return back();
      }

@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('admin-assets/css/shared/style.css')}}">
     <!-- endinject -->
     <!-- Layout styles -->
+
+    <link rel="stylesheet" href="{{ asset('admin-assets/datatables.min.css')}}">
     <link rel="stylesheet" href="{{ asset('admin-assets/css/demo_1/style.css')}}">
     <!-- End Layout styles -->
     <link rel="shortcut icon" href="{{asset('admin-assets/images/favicon.png')}}" />
@@ -193,6 +195,12 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="{{asset('admin-assets/js/demo_1/dashboard.js')}}"></script>
+    <script src="{{asset('admin-assets/js/datatables.min.js')}}"></script>
     <!-- End custom js for this page-->
+    <script>
+      $(document).ready(function() {
+          $('#dataTable').DataTable();
+      } );
+    </script>
   </body>
 </html>

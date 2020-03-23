@@ -32,7 +32,7 @@ class Cart extends Model
     public static function totalItems(){
     	if(Auth::check()){
     		$carts = Cart::where('user_id', Auth::id())
-    		->Where('ip_address', request()->ip())
+    		->orWhere('ip_address', request()->ip())
     		->where('order_id', NULL)
     		->get();
     	}else{
@@ -56,6 +56,7 @@ class Cart extends Model
     public static function totalCarts(){
     	if(Auth::check()){
     		$carts = Cart::where('user_id', Auth::id())
+            ->orWhere('ip_address', request()->ip())
     		->where('order_id', NULL)
     		->get();
     	}else{

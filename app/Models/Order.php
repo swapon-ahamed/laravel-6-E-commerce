@@ -16,14 +16,19 @@ class Order extends Model
     	'email',
     	'is_paid',
     	'is_completed',
-    	'is_seen_by_admin'
+    	'is_seen_by_admin',
+        'transaction_id'
     ];
 
     public function user(){
-    	$this->belongsTo(User::class);
+    	return $this->belongsTo(User::class);
     }
 
     public function carts(){
-    	$this->belongsTo(Cart::class);
+    	return $this->hasMany(Cart::class);
+    }
+
+    public function payment(){
+        return $this->belongsTo(Payment::class);
     }
 }

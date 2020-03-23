@@ -1,8 +1,8 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-<div class="container mt-2">
-    <div class="row justify-content-center">
+<div class="container mt-2" style="margin-bottom: 200px !important">
+    <div class="row justify-content-center mt-5 mb-5">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
@@ -92,10 +92,7 @@
                             <div class="col-district_id-6">
                                 
                                 <select class="form-control" name="district_id" id="district_id">
-                                    <option value="">Please select your division</option>
-                                    @foreach( $districts as $district )
-                                    <option value="{{ $district->id}}">{{ $district->name }}</option>
-                                    @endforeach
+                                   
                                 </select>
 
                                 @error('district_id')
@@ -155,4 +152,24 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $("#division_id").change(function() { 
+             var division_id = $(this).val();
+             // send ajax request
+             $("#district_id").html("");
+             var options = '<option value="">Please select your division</option>';
+
+             $.get("/get-districts/"+division_id, function(data, status){
+                var data = JSON.parse(data);
+                data.forEach(function(element){
+                   options += '<option value="'+element.id+'">'+element.name+'</option>';
+                });
+                $("#district_id").html(options);
+                
+            });
+        });
+    </script>
 @endsection

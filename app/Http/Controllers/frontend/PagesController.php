@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Slider;
 
 class PagesController extends Controller
 {
     public function index(){
-        $products = Product::orderBy('id','desc')->paginate(3);
-    	return view('frontend.pages.index', compact('products'));
+        $sliders = Slider::orderBy('prioriy','asc')->get();
+        $products = Product::orderBy('id','desc')->paginate(20);
+    	return view('frontend.pages.index', compact('products','sliders'));
     }
 
      public function contact(){
@@ -23,7 +25,7 @@ class PagesController extends Controller
         ->orWhere('slug','like', '%'.$search.'%')
         ->orWhere('price','like', '%'.$search.'%')
         ->orWhere('quantity','like', '%'.$search.'%')
-        ->orderBy('id','desc')->paginate(2);
+        ->orderBy('id','desc')->paginate(20);
 
         return view('frontend.pages.product.search',compact('search','products'));
     }

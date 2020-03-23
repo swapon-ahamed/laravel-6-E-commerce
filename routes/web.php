@@ -29,6 +29,27 @@ Route::get('/pages/contact', 'Frontend\PagesController@contact')->name('contact'
  	Route::get('/category/{id}', 'Frontend\CategoriesController@show')->name('categories.show');
  });
 
+
+
+ // order routes
+ Route::group(['prefix' => '/orders'], function(){
+
+ 	Route::get('/', 'Backend\OrdersController@index')->name('admin.orders');
+
+ 	Route::get('/view/{id}', 'Backend\OrdersController@show')->name('admin.order.show');
+ 	Route::post('/delete/{id}', 'Backend\OrdersController@delete')->name('admin.order.delete');
+
+ 	Route::post('/completed/{id}', 'Backend\OrdersController@completed')->name('admin.order.completed');
+ 	Route::post('/paid/{id}', 'Backend\OrdersController@paid')->name('admin.order.paid');
+ 	Route::post('/charge-update/{id}', 'Backend\OrdersController@chargeUpdate')->name('admin.order.charge');
+ 	Route::post('/charge-update/{id}', 'Backend\OrdersController@chargeUpdate')->name('admin.order.charge');
+ 	Route::get('/invoice/{id}', 'Backend\OrdersController@generateInvoice')->name('admin.order.invoice');
+
+ });
+
+
+
+
 // user routes
 Route::group(['prefix' => 'user'], function(){
 	Route::get('/token/{token}', 'Frontend\VerificationController@verify')->name('user.verification');
@@ -151,6 +172,20 @@ Route::group(['prefix' => 'admin'], function(){
 	});
 
 
+	// sliders routes
+	Route::group(['prefix' => '/sliders'], function(){
+
+		Route::get('/', 'Backend\SlidersController@index')->name('admin.sliders');
+		Route::get('/create', 'Backend\SlidersController@create')->name('admin.slider.create');
+		Route::get('/edit/{id}', 'Backend\SlidersController@edit')->name('admin.slider.edit');	
+		Route::get('/delete/{id}', 'Backend\SlidersController@delete')->name('admin.slider.delete');
+		Route::post('/store', 'Backend\SlidersController@store')->name('admin.slider.store');
+
+		Route::post('/slider/edit/{id}', 'Backend\SlidersController@update')->name('admin.slider.update');
+		Route::post('/slider/delete/{id}', 'Backend\SlidersController@delete')->name('admin.slider.delete');
+	});
+
+
 });
 
 
@@ -158,3 +193,8 @@ Route::group(['prefix' => 'admin'], function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// API routes
+Route::get('get-sliders/{id}', function($id){
+	return json_encode( App\Models\District::where('division_id', $id)->get());
+});

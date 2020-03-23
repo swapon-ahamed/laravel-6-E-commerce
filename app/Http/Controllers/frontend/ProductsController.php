@@ -10,7 +10,7 @@ use App\Models\Product;
 class ProductsController extends Controller
 {
 	public function index(){
-		$products = Product::orderBy('id','desc')->paginate(3);
+		$products = Product::orderBy('id','desc')->paginate(20);
 
 		return view('frontend.pages.product.index')->with('products',$products);
 	}

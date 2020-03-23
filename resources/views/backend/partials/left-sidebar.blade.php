@@ -37,6 +37,23 @@
               </div>
             </li>
 
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title">Manage Orders</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.orders')}}">View Orders</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false" aria-controls="ui-basic">
                 <i class="menu-icon typcn typcn-coffee"></i>
@@ -104,6 +121,21 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.district.create')}}">Create Districts</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-slider" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon typcn typcn-coffee"></i>
+                <span class="menu-title">Manage Sliders</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="ui-slider">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.sliders')}}">View Sliders</a>
                   </li>
                 </ul>
               </div>

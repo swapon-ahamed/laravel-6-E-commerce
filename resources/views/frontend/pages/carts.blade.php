@@ -72,6 +72,7 @@
   <a href="{{ route('products') }}" class="btn btn-info btn-lg">Continue</a>
   <a href="{{ route('checkouts') }}" class="btn btn-warning btn-lg">Checkout</a>
 </div>
+<div class="clearfix"></div>
   @else
   <div class="alert alert-warning">There is no items in your cart</div>
   <div class="float-right">

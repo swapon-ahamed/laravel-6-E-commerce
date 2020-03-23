@@ -55,13 +55,11 @@ CREATE TABLE `carts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `carts` (`id`, `product_id`, `user_id`, `order_id`, `ip_address`, `product_quantity`, `created_at`, `updated_at`) VALUES
-(1,	8,	20,	6,	'127.0.0.1',	9,	'2020-02-02 10:22:33',	'2020-02-08 10:46:09'),
-(3,	7,	20,	6,	'127.0.0.1',	7,	'2020-02-04 12:05:56',	'2020-02-08 10:42:55'),
-(4,	6,	20,	7,	'127.0.0.1',	2,	'2020-02-08 10:41:41',	'2020-02-08 10:46:27'),
 (5,	2,	20,	7,	'127.0.0.1',	2,	'2020-02-08 10:44:45',	'2020-02-08 10:47:06'),
-(6,	3,	20,	8,	'127.0.0.1',	100,	'2020-02-08 10:47:09',	'2020-02-08 10:47:38'),
 (7,	4,	20,	8,	'127.0.0.1',	1,	'2020-02-08 10:47:13',	'2020-02-08 10:47:38'),
-(14,	8,	NULL,	NULL,	'127.0.0.1',	1,	'2020-03-19 10:14:24',	'2020-03-19 10:14:24');
+(16,	7,	NULL,	NULL,	'127.0.0.1',	1,	'2020-03-23 05:27:42',	'2020-03-23 05:27:42'),
+(17,	4,	NULL,	NULL,	'127.0.0.1',	1,	'2020-03-23 06:15:38',	'2020-03-23 06:15:38'),
+(18,	8,	NULL,	NULL,	'127.0.0.1',	1,	'2020-03-23 06:51:47',	'2020-03-23 06:51:47');
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
@@ -144,7 +142,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17,	'2020_02_05_175648_create_settings_table',	6),
 (18,	'2020_02_06_171841_create_payments_table',	7),
 (19,	'2020_02_02_145312_create_orders_table',	8),
-(20,	'2019_12_16_074526_create_admins_table',	9);
+(20,	'2019_12_16_074526_create_admins_table',	9),
+(21,	'2020_03_22_044122_sliders',	10);
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
@@ -161,18 +160,20 @@ CREATE TABLE `orders` (
   `is_completed` tinyint(1) NOT NULL DEFAULT '0',
   `is_seen_by_admin` tinyint(1) NOT NULL DEFAULT '0',
   `transaction_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping_cost` int(10) DEFAULT '60',
+  `custom_discount` int(10) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `orders` (`id`, `user_id`, `payment_id`, `name`, `ip_address`, `phone_no`, `shipping_address`, `message`, `email`, `is_paid`, `is_completed`, `is_seen_by_admin`, `transaction_id`, `created_at`, `updated_at`) VALUES
-(3,	20,	2,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'test',	'swapon.ahamed@gmail.com',	0,	0,	0,	'324324324',	'2020-02-08 10:12:43',	'2020-02-08 10:12:43'),
-(4,	20,	1,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'Nikunja',	'Test Cash on deli',	'swapon.ahamed@gmail.com',	0,	0,	0,	NULL,	'2020-02-08 10:13:10',	'2020-02-08 10:13:10'),
-(5,	20,	3,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'dsfds',	'swapon.ahamed@gmail.com',	0,	0,	0,	'32r324',	'2020-02-08 10:23:11',	'2020-02-08 10:23:11'),
-(6,	20,	1,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	NULL,	'swapon.ahamed@gmail.com',	0,	0,	0,	NULL,	'2020-02-08 10:23:53',	'2020-02-08 10:23:53'),
-(7,	20,	2,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	NULL,	'swapon.ahamed@gmail.com',	0,	0,	0,	'4324324',	'2020-02-08 10:46:26',	'2020-02-08 10:46:26'),
-(8,	20,	1,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'dsfds',	'swapon.ahamed@gmail.com',	0,	0,	0,	NULL,	'2020-02-08 10:47:38',	'2020-02-08 10:47:38');
+INSERT INTO `orders` (`id`, `user_id`, `payment_id`, `name`, `ip_address`, `phone_no`, `shipping_address`, `message`, `email`, `is_paid`, `is_completed`, `is_seen_by_admin`, `transaction_id`, `shipping_cost`, `custom_discount`, `created_at`, `updated_at`) VALUES
+(3,	20,	2,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'test',	'swapon.ahamed@gmail.com',	0,	0,	0,	'324324324',	60,	0,	'2020-02-08 10:12:43',	'2020-02-08 10:12:43'),
+(4,	20,	1,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'Nikunja',	'Test Cash on deli',	'swapon.ahamed@gmail.com',	1,	1,	1,	NULL,	70,	10,	'2020-02-08 10:13:10',	'2020-03-22 23:48:52'),
+(5,	20,	3,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'dsfds',	'swapon.ahamed@gmail.com',	0,	0,	0,	'32r324',	60,	0,	'2020-02-08 10:23:11',	'2020-02-08 10:23:11'),
+(6,	20,	1,	'John Doe',	'127.0.0.1',	'01726919674',	'sdasdas',	NULL,	'swapon.ahamed@gmail.com',	0,	0,	0,	NULL,	60,	0,	'2020-02-08 10:23:53',	'2020-02-08 10:23:53'),
+(7,	20,	2,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	NULL,	'swapon.ahamed@gmail.com',	0,	0,	0,	'4324324',	60,	0,	'2020-02-08 10:46:26',	'2020-02-08 10:46:26'),
+(8,	20,	1,	'swapon ahamed',	'127.0.0.1',	'01726919674',	'sdasdas',	'dsfds',	'swapon.ahamed@gmail.com',	0,	0,	1,	NULL,	60,	0,	'2020-02-08 10:47:38',	'2020-03-22 11:00:01');
 
 DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
@@ -224,10 +225,10 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `category_id`, `brand_id`, `title`, `description`, `slug`, `quantity`, `price`, `status`, `offer_price`, `admin_id`, `created_at`, `updated_at`) VALUES
 (2,	1,	1,	'Samsung galaxy j7 nxt',	'test',	'test',	10,	10000,	0,	NULL,	1,	'2020-01-30 00:20:32',	'2020-01-30 00:20:32'),
 (3,	1,	1,	'Samsung Galaxy Young',	'test',	'test',	10,	15000,	0,	NULL,	1,	'2020-01-30 00:23:03',	'2020-01-30 00:23:03'),
-(4,	1,	1,	'Samsung galaxy test',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',	'samsung-galaxy-test',	10,	17000,	0,	NULL,	1,	'2020-01-30 07:51:12',	'2020-01-30 07:51:12'),
-(6,	1,	1,	'dsfds sdf ds',	'dsf fds',	'dsfds-sdf-ds',	111,	1111,	0,	NULL,	1,	'2020-01-30 07:57:11',	'2020-01-30 07:57:11'),
+(4,	2,	5,	'Samsung galaxy',	'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',	'samsung-galaxy-test',	10,	17000,	0,	NULL,	1,	'2020-01-30 07:51:12',	'2020-03-23 06:50:27'),
 (7,	1,	6,	'Sony Camera',	'sony camera',	'sony-camera',	10,	8000,	0,	NULL,	1,	'2020-01-31 08:17:18',	'2020-01-31 08:17:18'),
-(8,	4,	5,	'Titan sunglass',	'dtesfj dsjdsljs',	'titan-sunglass',	20,	5000,	0,	NULL,	1,	'2020-01-31 09:05:34',	'2020-01-31 09:55:47');
+(8,	4,	5,	'Titan sunglass',	'dtesfj dsjdsljs',	'titan-sunglass',	20,	5000,	0,	NULL,	1,	'2020-01-31 09:05:34',	'2020-01-31 09:55:47'),
+(9,	4,	5,	'Gown',	'For Lades  cloth. Only machine wash.',	'gown',	10,	7000,	0,	NULL,	1,	'2020-03-23 06:49:13',	'2020-03-23 06:49:13');
 
 DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE `product_images` (
@@ -253,7 +254,8 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`, `update
 (11,	5,	'1580392329.jpg',	'2020-01-30 07:52:09',	'2020-01-30 07:52:09'),
 (12,	6,	'1580392631.jpg',	'2020-01-30 07:57:11',	'2020-01-30 07:57:11'),
 (13,	7,	'1580480238.gif',	'2020-01-31 08:17:18',	'2020-01-31 08:17:18'),
-(14,	8,	'1580483134.gif',	'2020-01-31 09:05:34',	'2020-01-31 09:05:34');
+(14,	8,	'1580483134.gif',	'2020-01-31 09:05:34',	'2020-01-31 09:05:34'),
+(15,	9,	'1584967753.jpg',	'2020-03-23 06:49:13',	'2020-03-23 06:49:13');
 
 DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
@@ -269,6 +271,24 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `email`, `phone`, `address`, `shipping_cost`, `created_at`, `updated_at`) VALUES
 (1,	'test@test.com',	'017269999',	'Dhaka - 1000',	100,	'2020-02-05 18:02:40',	'2020-02-05 18:02:40');
+
+DROP TABLE IF EXISTS `sliders`;
+CREATE TABLE `sliders` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_text` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_linke` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `prioriy` tinyint(3) unsigned NOT NULL DEFAULT '10',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `sliders` (`id`, `title`, `image`, `button_text`, `button_linke`, `prioriy`, `created_at`, `updated_at`) VALUES
+(2,	'Banner One',	'1584966985.jpg',	'Facebook',	'https://facebook.com',	1,	'2020-03-21 23:48:59',	'2020-03-23 06:36:25'),
+(3,	'Banner Two',	'1584967012.jpg',	'Twitter',	'https://twitter.com',	2,	'2020-03-22 00:26:03',	'2020-03-23 06:36:52'),
+(4,	'Banner Three',	'1584967045.png',	'Linkdin',	'https://linkdin.com',	3,	'2020-03-22 00:26:37',	'2020-03-23 06:37:25');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -300,4 +320,4 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `p
 (17,	'swapon',	'ahamed',	'swaponahamed',	'$2y$10$DZqSg8wdpYgDRJyAIsCRAO3PxBtVmkXn8PcvSDJWQtqHo2hcm.cdC',	'343242',	'manirujjamanakash@gmail.com',	'Nikinja',	2,	2,	NULL,	NULL,	NULL,	NULL,	1,	NULL,	'2020-02-01 09:57:30',	'2020-02-01 10:23:10'),
 (20,	'swapon',	'ahamed',	'swaponahamed2',	'$2y$10$M6jmV4Z6274HxCxdvMoz9OR/4o/o67tRkO3JCrcD8wsOu1wy28d6G',	'01726919674',	'swapon.ahamed@gmail.com',	'Nikinja',	2,	2,	'127.0.0.1',	NULL,	'sdasdas',	NULL,	1,	NULL,	'2020-02-01 09:57:30',	'2020-02-02 08:49:11');
 
--- 2020-03-22 03:18:58
+-- 2020-03-23 13:57:48
